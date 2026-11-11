@@ -1,43 +1,35 @@
-# Tercept Insights MCP Server
+# TERCEPT MCP Server
 
-Connect Claude, or any other AI assistant that supports MCP, to your Tercept Insights account. Ask questions about your
-data, find dashboards and charts, run read-only SQL and manage scheduled reports, all in plain language.
+Connect your AI assistant to your Tercept Insights account. Ask questions about your data, find dashboards and charts,
+run read-only SQL and manage scheduled reports, all in plain language.
 
 | | |
 |---|---|
 | **Server URL** | https://insights-mcp.tercept.com/mcp |
 | **Sign-in** | OAuth 2.0 with your Tercept Insights login |
 | **Who can use it** | Tercept Insights users whose admin has turned on MCP access |
-| **Support** | [gourav.chindlur@tercept.com] |
+| **Support** | [gourav.chindlur@tercept.com](mailto:gourav.chindlur@tercept.com) |
 
 ## Contents
 
-1. [What is MCP?](#what-is-mcp)
-2. [What the Tercept Insights MCP server does](#what-the-tercept-insights-mcp-server-does)
-3. [How it works](#how-it-works)
-4. [Before you start](#before-you-start)
-5. [Connect your assistant](#connect-your-assistant)
-6. [Tools](#tools)
-7. [Example prompts](#example-prompts)
-8. [Limits and logs](#limits-and-logs)
-9. [Data and privacy](#data-and-privacy)
-10. [Troubleshooting](#troubleshooting)
-11. [Support](#support)
+1. [What the TERCEPT MCP Server does](#what-the-tercept-mcp-server-does)
+2. [How it works](#how-it-works)
+3. [Before you start](#before-you-start)
+4. [Connect your assistant](#connect-your-assistant)
+5. [Tools](#tools)
+6. [Example prompts](#example-prompts)
+7. [Limits](#limits)
+8. [Troubleshooting](#troubleshooting)
+9. [Support](#support)
 
 ---
 
-## What is MCP?
-
-MCP (Model Context Protocol) is an open standard that lets AI assistants work with other applications. An application
-publishes a set of tools through an MCP server, and the assistant calls those tools to look things up or take actions
-on your behalf. You describe what you need, and the assistant decides which tools to call.
-
-## What the Tercept Insights MCP server does
+## What the TERCEPT MCP Server does
 
 Tercept Insights is Tercept's analytics and reporting platform. Customers use it to bring together data from their ad
 platforms, marketplaces and other sources, and to build reports and dashboards on top of it.
 
-The Tercept Insights MCP server connects your Insights account to your AI assistant. Once connected, you can:
+The TERCEPT MCP Server connects your Insights account to your AI assistant. Once connected, you can:
 
 - Find dashboards, charts, data sources and saved queries, and ask what they show.
 - Ask questions about your numbers. The assistant reads chart data, or writes and runs a read-only SQL query, to answer.
@@ -46,9 +38,9 @@ The Tercept Insights MCP server connects your Insights account to your AI assist
 - Create, change or delete scheduled reports and alerts, and preview an alert email before you create it.
 - Get help with Insights features and menus.
 
-> **Example:** You ask Claude, "How did revenue by demand partner change last week compared with the week before?"
-> Claude finds the right data source in your Insights account, checks its columns and metrics, runs a read-only query
-> for both weeks and gives you the comparison along with the figures it used.
+> **Example:** You ask your assistant, "How did revenue by demand partner change last week compared with the week
+> before?" It finds the right data source in your Insights account, checks its columns and metrics, runs a read-only
+> query for both weeks and gives you the comparison along with the figures it used.
 
 ## How it works
 
@@ -94,33 +86,30 @@ https://insights-mcp.tercept.com/mcp
 
 The URL contains no key or password. Each user signs in separately with their own Insights login.
 
-### Claude: from the Connectors Directory
+### From your assistant's directory
 
-1. In Claude, go to **Customize > Connectors** and search for **Tercept Insights**.
+If your assistant lists the **TERCEPT MCP Server** in its directory of apps or connectors:
+
+1. Find **TERCEPT MCP Server** in the directory.
 2. Click **Connect**. The Insights sign-in page opens.
-3. Sign in. You are returned to Claude.
-4. In a chat, open the **+** menu, go to **Connectors** and turn on **Tercept Insights**.
+3. Sign in. You are returned to your assistant.
+4. Turn the server on in the conversations where you want to use it, if your assistant asks you to.
 
-### Claude: as a custom connector
+### By URL
 
-1. Go to **Customize > Connectors > Add custom connector**.
-2. Enter **Tercept Insights** as the name and the server URL above.
-3. Click **Add**, then **Connect**, and sign in.
+If your assistant lets you add an MCP server by URL (often called a custom connector or custom app):
 
-### Claude Code
+1. Add a new MCP server or connector.
+2. Enter **TERCEPT MCP Server** as the name and the server URL above.
+3. Choose OAuth if the assistant asks how to authenticate.
+4. Connect and sign in with your Insights login.
 
-Run:
+Any MCP client that supports remote servers over HTTP with OAuth sign-in can connect this way.
 
-```
-claude mcp add --transport http tercept-insights https://insights-mcp.tercept.com/mcp
-```
+### Disconnecting
 
-Then type /mcp in Claude Code, select **tercept-insights** and choose **Authenticate**. The Insights sign-in page opens
-in your browser.
-
-### Other assistants
-
-Any MCP client that supports remote servers over HTTP with OAuth sign-in can connect using the same URL.
+Remove the server from your assistant's connector or app settings. Your Insights admin can also remove your MCP
+access, which stops all tool calls immediately.
 
 ## Tools
 
@@ -177,26 +166,13 @@ Depending on your assistant's settings, it asks for your approval before using a
 - "Email me a report of yesterday's top 10 ad units by revenue every weekday at 9am."
 - "How much of my daily data limit have I used today?"
 
-## Limits and logs
+## Limits
 
 | | |
 |---|---|
 | **Rate limits** | Each user can call each tool a limited number of times per minute. If you reach the limit, wait a minute and try again. |
 | **Daily data limit** | SQL queries on ClickHouse data sources count towards a daily limit on the amount of data scanned: 200 GB by default, unless your admin has set a different limit. Ask the assistant how much you have used. |
-| **Logs** | Tercept logs each tool call (user, tool, time and outcome) and, for SQL queries, a short preview of the query and the amount of data it read. These logs are used for security, support and the limits above. |
-
-## Data and privacy
-
-- **What the assistant receives:** the results of the tools it calls, such as chart data, query results and the names
-  and descriptions of your Insights objects. These become part of your conversation and are governed by your AI
-  provider's terms and your settings with that provider.
-- **What Tercept stores:** the logs described above, kept for [retention period]. Your sign-in stays active for up to
-  30 days and renews while you use the server.
-- **What Tercept does not do:** [legal to confirm, for example: we do not sell this data or share it with third parties].
-- **More information:** see the [Tercept privacy policy](https://tercept.com/privacy-policy-2/).
-
-**Disconnecting:** remove the connector in your assistant (in Claude, **Customize > Connectors**). Your Insights admin
-can also remove your MCP access, which stops all tool calls immediately.
+| **Sign-in** | Your sign-in stays active for up to 30 days and renews while you use the server. |
 
 ## Troubleshooting
 
@@ -213,9 +189,8 @@ can also remove your MCP access, which stops all tool calls immediately.
 
 | | |
 |---|---|
-| **Questions and problems** | [gourav.chindlur@tercept.com] |
+| **Questions and problems** | [gourav.chindlur@tercept.com](mailto:gourav.chindlur@tercept.com) |
 
-**Useful links:** [Tercept Insights](https://insights.tercept.com) · [Privacy policy](https://tercept.com/privacy-policy-2/) ·
-[Model Context Protocol](https://modelcontextprotocol.io)
+**Useful links:** [Tercept Insights](https://insights.tercept.com) · [Privacy policy](https://tercept.com/privacy-policy-2/)
 
 *Last updated: [publish date]*
