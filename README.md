@@ -1,5 +1,6 @@
 ---
 title: TERCEPT MCP Server
+permalink: /
 ---
 
 <h1 style="display:flex;align-items:center;gap:12px"><img src="assets/images/tercept-icon.png" alt="" width="44" height="44">TERCEPT MCP Server</h1>
