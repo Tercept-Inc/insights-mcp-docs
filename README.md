@@ -1,6 +1,8 @@
-<img src="assets/images/tercept-logo.png" alt="TERCEPT" width="168">
+---
+title: TERCEPT MCP Server
+---
 
-# TERCEPT MCP Server
+<h1 style="display:flex;align-items:center;gap:12px"><img src="assets/images/tercept-icon.png" alt="" width="44" height="44">TERCEPT MCP Server</h1>
 
 Connect your AI assistant to your TERCEPT account. Ask questions about your data, find dashboards and charts, run
 read-only SQL and manage scheduled reports, all in plain language.
